@@ -71,11 +71,11 @@ class File {
      File();
 
       /**
-      * @brief Calculates and returns the size of the File Object (IN BYTES), using .size()
+      * @brief Calculates and returns the size of the File Object (IN BYßTES), using .size()
       * @return size_t The number of bytes the File's contents consumes
       * @note Consider this: how does this relate to the string's length? Why is that the case?
       */
-     size_t fileSize();
+     size_t getSize() const;
       
 
       /**
