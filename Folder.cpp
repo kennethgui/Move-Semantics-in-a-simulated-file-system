@@ -92,7 +92,7 @@ bool Folder::addFile(const File& new_file) {
    return true;
 }
 
-bool Folder::deleteFile(const std::string& name) {
+bool Folder::removeFile(const std::string& name) {
    auto it = std::find_if(files_.begin(), files_.end(), [&name](const File& file) {
       return file.getName() == name;
    });
@@ -104,7 +104,7 @@ bool Folder::deleteFile(const std::string& name) {
    return false;
 }
 
-bool Folder::moveFile(const std::string& name, Folder& destination) {
+bool Folder::moveFileTo(const std::string& name, Folder& destination) {
    auto it = std::find_if(files_.begin(), files_.end(), [&name](const File& file) {
       return file.getName() == name;
    });
@@ -116,7 +116,7 @@ bool Folder::moveFile(const std::string& name, Folder& destination) {
    return false;
 }
 
-bool Folder::copyFile(const std::string& name, Folder& destination) const {
+bool Folder::copyFileTo(const std::string& name, Folder& destination) const {
    auto it = std::find_if(files_.begin(), files_.end(), [&name](const File& file) {
       return file.getName() == name;
    });

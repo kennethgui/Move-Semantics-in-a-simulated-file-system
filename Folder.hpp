@@ -78,7 +78,7 @@ class Folder {
        * @param name A const reference to a string representing the filename to be deleted
        * @return True if the file was found & successfully deleted. 
        */
-      bool deleteFile(const std::string& name);
+      bool removeFile(const std::string& name);
 
       /**
        * @brief Moves a file from the current folder to a specified folder 
@@ -92,7 +92,7 @@ class Folder {
        * @param destination The target folder to be moved to, as a reference to a Folder object
        * @return True if the file was moved successfully. False otherwise.
        */
-      bool moveFile(const std::string& name, Folder& destination);
+      bool moveFileTo(const std::string& name, Folder& destination);
 
       /**
          * @brief Copies a file within the current folder to the destination folder.
@@ -106,5 +106,5 @@ class Folder {
          * @param destination The destination folder, as a reference to a Folder object
          * @return True if the file was copied successfully. False otherwise.
          */
-        bool copyFile(const std::string& name, Folder& destination) const;
+        bool copyFileTo(const std::string& name, Folder& destination) const;
 };
