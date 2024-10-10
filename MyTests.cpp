@@ -1,59 +1,107 @@
-#include "File.hpp"
-#include "Folder.hpp"
 #include <iostream>
+#include <cassert>
+#include "Folder.hpp"
+#include "File.hpp"
 
-int main() {
+void testFolderConstructor() {
+    Folder defaultFolder;
+    assert(defaultFolder.getName() == "NewFolder");
+
     try {
-        // Create a few File objects
-        File file1("document.txt", "This is a text document.");
-        File file2("image.png", "This is an image file.");
-        File file3("notes.md", "These are my notes.");
-        File file4("document.txt"); // This will have the same name as file1
-
-        // Create a Folder
-        Folder myFolder("MyFolder");
-
-        // Add files to the folder
-        if (myFolder.addFile(file1)) {
-            std::cout << "Added file: " << file1.getName() << std::endl;
-        }
-        if (myFolder.addFile(file2)) {
-            std::cout << "Added file: " << file2.getName() << std::endl;
-        }
-        if (!myFolder.addFile(file4)) {
-            std::cout << "Failed to add file: " << file4.getName() << " (already exists)" << std::endl;
-        }
-
-        // Display the folder contents
-        std::cout << "Folder contents before renaming:" << std::endl;
-        myFolder.display();
-
-        // Rename the folder
-        if (myFolder.rename("NewFolderName")) {
-            std::cout << "Folder renamed to: " << myFolder.getName() << std::endl;
-        }
-
-        // Display the folder contents after renaming
-        std::cout << "Folder contents after renaming:" << std::endl;
-        myFolder.display();
-
-        // Create another folder
-        Folder destinationFolder("DestinationFolder");
-
-        // Copy a file to another folder
-        if (myFolder.copyFile("document.txt", destinationFolder)) {
-            std::cout << "File copied to destination folder." << std::endl;
-        } else {
-            std::cout << "Failed to copy file to destination folder." << std::endl;
-        }
-
-        // Display the destination folder contents
-        std::cout << "Destination folder contents:" << std::endl;
-        destinationFolder.display();
-
-    } catch (const InvalidFormatException& e) {
-        std::cerr << e.what() << std::endl;
+        Folder invalidFolder("Invalid@Name");
+        assert(false); // Should not reach this line
+    } catch (const InvalidFormatException&) {
+        // Expected
     }
 
+    Folder validFolder("ValidName");
+    assert(validFolder.getName() == "ValidName");
+}
+
+void testRename() {
+    Folder folder("MyFolder");
+    assert(folder.rename("NewName") == true);
+    assert(folder.getName() == "NewName");
+    assert(folder.rename("Invalid@Name") == false); // Invalid name should not rename
+    assert(folder.getName() == "NewName"); // Name should remain unchanged
+}
+
+void testAddFile() {
+    Folder folder("MyFolder");
+    File file1("File1.txt");
+    File file2("File2.txt");
+
+    assert(folder.addFile(file1) == true); // Should be added successfully
+    assert(folder.addFile(file2) == true); // Should be added successfully
+    assert(folder.addFile(file1) == false); // File1 already exists
+
+    // Check if file names are correct
+    folder.display(); // Expected output: File1.txt, File2.txt
+}
+
+void testRemoveFile() {
+    Folder folder("MyFolder");
+    File file1("File1.txt");
+    folder.addFile(file1);
+
+    assert(folder.removeFile("File1.txt") == true); // Should remove successfully
+    assert(folder.removeFile("File1.txt") == false); // Should fail since it's already removed
+}
+
+void testMoveFileTo() {
+    Folder source("SourceFolder");
+    Folder destination("DestinationFolder");
+    File file1("File1.txt");
+
+    source.addFile(file1);
+    assert(source.moveFileTo("File1.txt", destination) == true); // Should move successfully
+    assert(destination.removeFile("File1.txt") == true); // Should find the file in the destination
+    assert(source.moveFileTo("File1.txt", destination) == false); // Should fail since the file doesn't exist in source
+}
+
+void testCopyFileTo() {
+    Folder source("SourceFolder");
+    Folder destination("DestinationFolder");
+    File file1("File1.txt");
+
+    source.addFile(file1);
+    assert(source.copyFileTo("File1.txt", destination) == true); // Should copy successfully
+    assert(destination.removeFile("File1.txt") == true); // Should find the file in the destination
+    assert(source.copyFileTo("File1.txt", destination) == false); // Should fail since file already exists in destination
+}
+
+void testGetSize() {
+    Folder folder("MyFolder");
+    File file1("File1.txt", "Some content");
+    File file2("File2.txt", "More content");
+
+    folder.addFile(file1);
+    folder.addFile(file2);
+    assert(folder.getSize() == 2); // Assuming 1 file = 1 size for simplicity
+}
+
+void testDisplay() {
+    Folder folder("MyFolder");
+    File file1("File1.txt");
+    File file2("File2.txt");
+
+    folder.addFile(file1);
+    folder.addFile(file2);
+
+    std::cout << "Testing display output:\n";
+    folder.display(); // Check console output manually
+}
+
+int main() {
+    testFolderConstructor();
+    testRename();
+    testAddFile();
+    testRemoveFile();
+    testMoveFileTo();
+    testCopyFileTo();
+    testGetSize();
+    testDisplay();
+
+    std::cout << "All tests passed!" << std::endl;
     return 0;
 }

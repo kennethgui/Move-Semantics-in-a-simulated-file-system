@@ -1,6 +1,7 @@
 #pragma once
 
 #include "InvalidFormatException.hpp"
+#include <algorithm>
 
 class File {
    private:

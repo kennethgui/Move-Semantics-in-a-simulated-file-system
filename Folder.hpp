@@ -68,7 +68,7 @@ class Folder {
        * @return True if the file was added successfully. False otherwise.
        * @post If the file was added, leaves the parameter File object in a valid but unspecified state
        */
-       bool addFile(const File& new_file);
+       bool addFile(File& new_file);
 
       /**
        * @brief Searches for a file within the files_ vector to be deleted.
@@ -106,5 +106,5 @@ class Folder {
          * @param destination The destination folder, as a reference to a Folder object
          * @return True if the file was copied successfully. False otherwise.
          */
-        bool copyFileTo(const std::string& name, Folder& destination) const;
+        bool copyFileTo(const std::string& name, Folder& destination);
 };
