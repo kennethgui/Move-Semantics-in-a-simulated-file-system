@@ -68,7 +68,7 @@ class File {
       * @note You'll notice we provide a default value for the first possible argument (filename)
       *       Yes, this means we can define override the default constructor and define a parameterized one simultaneously.
       */
-     File();
+     File(std::string filename = "NewFile.txt", std::string contents = "", int* icon = nullptr);
 
       /**
       * @brief Calculates and returns the size of the File Object (IN BYßTES), using .size()
@@ -82,7 +82,7 @@ class File {
        * @brief (COPY CONSTRUCTOR) Constructs a new File object as a deep copy of the target File
        * @param rhs A const reference to the file to be copied from
        */
-      File(const File& obj);
+      File(const File& rhs);
 
 
       /**
@@ -92,7 +92,7 @@ class File {
        * @return A reference to the new File copy
        * @note If copy assignment operator is invoked upon itself, do nothing.
        */
-      File& operator=(const File& obj);
+      File& operator=(const File& rhs);
       
 
       /**
@@ -102,7 +102,7 @@ class File {
        *    - All string members are themselves moved.
        *    - ALl pointers are set to nullptr
        */
-      File(File&& obj);
+      File(File&& rhs);
 
       /**
        * @brief (MOVE ASSIGNMENT) Move the rhs data to the calling file object
@@ -114,7 +114,7 @@ class File {
        *    - ALl pointers are set to nullptr
        * @note If move assignment operator is invoked upon itself, do nothing.
        */
-      File&& operator=(const File&& obj);
+      File& operator=(File&& rhs);
 
       
       /**

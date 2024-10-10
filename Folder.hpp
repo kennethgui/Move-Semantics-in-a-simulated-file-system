@@ -57,7 +57,7 @@ class Folder {
       * @brief Iterate through the files vector, calculating the total size of all child files
       * @return size_t The total size of all child files
       */
-     getSize
+     //getSize
       
       /**
       * @brief Appends the given file to the files_ vector using move_semantics on the parameter File object, if a file with the same name does not exist within the files_ vector
@@ -67,7 +67,7 @@ class Folder {
        * @return True if the file was added successfully. False otherwise.
        * @post If the file was added, leaves the parameter File object in a valid but unspecified state
        */
-      addFile
+      //addFile
 
       /**
        * @brief Searches for a file within the files_ vector to be deleted.
@@ -77,7 +77,7 @@ class Folder {
        * @param name A const reference to a string representing the filename to be deleted
        * @return True if the file was found & successfully deleted. 
        */
-      removeFile
+      //removeFile
 
       /**
        * @brief Moves a file from the current folder to a specified folder 
@@ -91,7 +91,7 @@ class Folder {
        * @param destination The target folder to be moved to, as a reference to a Folder object
        * @return True if the file was moved successfully. False otherwise.
        */
-      moveFileTo
+      //moveFileTo
 
       /**
          * @brief Copies a file within the current folder to the destination folder.
@@ -105,5 +105,5 @@ class Folder {
          * @param destination The destination folder, as a reference to a Folder object
          * @return True if the file was copied successfully. False otherwise.
          */
-        copyFileTo
+        //copyFileTo
 };
