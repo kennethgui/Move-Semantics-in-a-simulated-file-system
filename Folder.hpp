@@ -58,7 +58,7 @@ class Folder {
       * @return size_t The total size of all child files
       */
      //size_t getSize();
-     size_t calculateTotalSize();
+     size_t getSize() const;
       
       /**
       * @brief Appends the given file to the files_ vector using move_semantics on the parameter File object, if a file with the same name does not exist within the files_ vector
@@ -68,7 +68,7 @@ class Folder {
        * @return True if the file was added successfully. False otherwise.
        * @post If the file was added, leaves the parameter File object in a valid but unspecified state
        */
-       bool addFile(File&& new_file);
+       bool addFile(const File& new_file);
 
       /**
        * @brief Searches for a file within the files_ vector to be deleted.

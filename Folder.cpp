@@ -71,3 +71,58 @@ void Folder::display() {
 //             (unless you want your work to be tested incorrectly)
 //    That also means includes. Remember, all other includes go in .hpp
 // =========================== YOUR CODE HERE ===========================
+size_t Folder::getSize() const {
+   size_t totalSize = 0;
+   for (auto it = files_.begin(); it != files_.end(); ++it) {
+      totalSize += it->getSize();
+   }
+   return totalSize;
+}
+
+bool Folder::addFile(const File& new_file) {
+   if (new_file.getName().empty()) return false;
+
+   for (auto it = files_.begin(); it != files_.end(); ++it) {
+      if (it->getName() == new_file.getName()) {
+         return false; // File with the same name already exists
+      }
+   }
+
+   files_.push_back(new_file); // Here we use the copy constructor
+   return true;
+}
+
+bool Folder::deleteFile(const std::string& name) {
+   auto it = std::find_if(files_.begin(), files_.end(), [&name](const File& file) {
+      return file.getName() == name;
+   });
+
+   if (it != files_.end()) {
+      files_.erase(it);
+      return true;
+   }
+   return false;
+}
+
+bool Folder::moveFile(const std::string& name, Folder& destination) {
+   auto it = std::find_if(files_.begin(), files_.end(), [&name](const File& file) {
+      return file.getName() == name;
+   });
+
+   if (it != files_.end() && destination.addFile(std::move(*it))) {
+      files_.erase(it);
+      return true;
+   }
+   return false;
+}
+
+bool Folder::copyFile(const std::string& name, Folder& destination) const {
+   auto it = std::find_if(files_.begin(), files_.end(), [&name](const File& file) {
+      return file.getName() == name;
+   });
+
+   if (it != files_.end() && destination.addFile(*it)) { 
+      return true;
+   }
+   return false;
+}

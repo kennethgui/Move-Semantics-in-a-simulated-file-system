@@ -63,7 +63,7 @@ File::File(std::string filename, std::string contents, int* icon)
             filename_ = filename;
         }
 
-        std::cout << "constructor worked yay \n";
+        //std::cout << "constructor worked yay \n";
     }
 
     if (icon) {
@@ -85,7 +85,7 @@ File::File(const File& rhs)
 }
 
 File& File::operator=(const File& rhs) {
-    if (this != &rhs) { // Prevent self-assignment
+    if (this != &rhs) { 
         filename_ = rhs.filename_;
         contents_ = rhs.contents_;
 
@@ -107,7 +107,7 @@ File::File(File&& rhs)
 
 // Move assignment operator
 File& File::operator=(File&& rhs) {
-    if (this != &rhs) { // Prevent self-assignment
+    if (this != &rhs) { 
         filename_ = std::move(rhs.filename_);
         contents_ = std::move(rhs.contents_);
 
@@ -120,5 +120,5 @@ File& File::operator=(File&& rhs) {
 
 File::~File() {
    delete[] icon_;
-   std::cout << "destructor worked yay\n";
+   //std::cout << "destructor worked yay\n";
 }
